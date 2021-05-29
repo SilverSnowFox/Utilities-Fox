@@ -39,7 +39,7 @@ class Commands(commands.Cog):
             await ctx.send("Please input a chemical formula")
             return
         elif arg is None:
-            await ctx.send("Please input a value. \n Valid units: g, mg, L, mL, mol, mmol")
+            await ctx.send("Please input a value. \n Valid units: g, mg, mol, mmol")
             return
 
         compound = Compound(formula)

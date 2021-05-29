@@ -21,7 +21,7 @@ class Commands(commands.Cog):
         embed.add_field(name='c!Mass [formula] [values][units]',
                         value='Calculates the missing information according to the units given.\n'+
                         'For example: `c!Mass H2O 2g` would return its mass and moles.\n\n' +
-                        'Valid units: g, mg, L, mL, mol, mmol\n',
+                        'Valid units: g, mg, mol, mmol\n',
                         inline=False)
         embed.add_field(name="\u200b", value="\u200b", inline=False)
         embed.add_field(name="c!Quadratic [a] [b] [c]",
