@@ -23,6 +23,10 @@ class Commands(commands.Cog):
                         'For example: `c!Mass H2O 2g` would return its mass and moles.\n\n' +
                         'Valid units: g, mg, L, mL, mol, mmol\n',
                         inline=False)
+        embed.add_field(name="\u200b", value="\u200b", inline=False)
+        embed.add_field(name="c!Quadratic [a] [b] [c]",
+                        value="Calculates the quadratic roots of a equation in the form ax^2 + bx + c",
+                        inline=False)
         await ctx.send(embed=embed)
 
     @commands.command()
