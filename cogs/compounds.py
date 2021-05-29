@@ -12,9 +12,7 @@ class Commands(commands.Cog):
         if arg is None:
             await ctx.send("Please select a calculation. \n c!MolarMass [compound formula]")
             return
-        print(arg)
         compound = Compound(arg)
-        print(compound)
         embed = discord.Embed(title='Molar Mass', color=discord.Colour.gold())
         embed.add_field(name='Molar mass of ' + arg + ':', value=str(compound.molar_mass()) + 'g/mol',
                         inline=False)
