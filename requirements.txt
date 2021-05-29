@@ -1,0 +1,2 @@
+discord~=1.0.1
+chemlib~=2.2.0
