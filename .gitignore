@@ -3,3 +3,4 @@
 cogs/__pycache__/
 .Test.py
 venv/
+token.json
