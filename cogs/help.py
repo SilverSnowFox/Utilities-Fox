@@ -15,7 +15,7 @@ class Commands(commands.Cog):
                         inline=False)
         embed.add_field(name="\u200b", value="\u200b", inline=False)
         embed.add_field(name='c!Molarmass [formula]',
-                        value='Displays the molar mass of the compound and its percent by mass.\n',
+                        value='Displays the molar mass of the compound.\n',
                         inline=False)
         embed.add_field(name="\u200b", value="\u200b", inline=False)
         embed.add_field(name='c!Mass [formula] [values][units]',

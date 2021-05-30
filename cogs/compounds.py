@@ -17,20 +17,6 @@ class Commands(commands.Cog):
         embed.add_field(name='Molar mass of ' + arg + ':', value=str(compound.molar_mass()) + 'g/mol',
                         inline=False)
 
-        percent_by_mass = ''
-        i = 0
-        while i < len(arg) - 1:
-            if arg[i].isalpha() and arg[i].isupper() and arg[i+1].isalpha():
-                chem = arg[i] + arg[i+1]
-                percent_by_mass += chem + ': ' + str(compound.percentage_by_mass(chem)) + ' %\n'
-                i += 1
-            elif arg[i].isalpha():
-                percent_by_mass += arg[i] + ': ' + str(compound.percentage_by_mass(arg[i])) + ' %\n'
-            i += 1
-        if arg[-1].isalpha() and arg[-1].isupper():
-            percent_by_mass += arg[i] + ': ' + str(compound.percentage_by_mass(arg[i])) + ' %\n'
-
-        embed.add_field(name='Percent by mass', value=percent_by_mass, inline=False)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=["Mass"])
