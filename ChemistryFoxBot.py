@@ -3,7 +3,7 @@ import json
 import os
 from discord.ext import commands
 
-client = commands.Bot(command_prefix=["c!"])
+client = commands.Bot(command_prefix=["c!", "C!"])
 client.remove_command('help')
 
 

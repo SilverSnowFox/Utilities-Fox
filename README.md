@@ -30,3 +30,15 @@ Calculates the roots, whether real or imaginary, with the values a, b, c from a 
 
 Balances the inputted reaction.
 The reaction must be in the form ```aA + bB -> cC + dD```. For example: ```C3H8 + 5O2 -> 3CO2 + 4H2O```.
+
+### Search by Name
+```c!Search [name]```
+
+Searches for the compound with such name in the PubChem database and returns a list of the results.
+Information returned includes: IUPAC name, CID, Molecular Weight and Molecular Formula
+
+### Search by CID
+```c!Info [CID]```
+
+Searches for the compound with such CID in the PubChem database for a more details.
+Information returned includes: IUPAC name, Molecular Formula, Molecular Weight, Charge and an image of the Lewis Structure as a PNG.

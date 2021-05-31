@@ -27,6 +27,15 @@ class Commands(commands.Cog):
         embed.add_field(name="c!Quadratic [a] [b] [c]",
                         value="Calculates the quadratic roots of a equation in the form ax^2 + bx + c",
                         inline=False)
+        embed.add_field(name="\u200b", value="\u200b", inline=False)
+        embed.add_field(name="c!Search [name]",
+                        value="Searches for the compound with such name in the PubChem database and returns a "+
+                        "list of the results.",
+                        inline=False)
+        embed.add_field(name="\u200b", value="\u200b", inline=False)
+        embed.add_field(name="c!Info [CID]",
+                        value="Searches for the compound with such CID in the PubChem database for a more details.",
+                        inline=False)
         await ctx.send(embed=embed)
 
     @commands.command()

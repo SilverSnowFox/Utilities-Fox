@@ -1,6 +1,6 @@
 .token.json
 .idea/
 cogs/__pycache__/
-.Test.py
 venv/
 token.json
+Testing_and_info/
