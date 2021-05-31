@@ -15,6 +15,8 @@ class Commands(commands.Cog):
                            "`c!quadratic [a] [b] [c]`\nFrom ax^2 + bx + c = 0")
             return
 
+        a, b, c = float(a), float(b), float(c)
+
         # Calculates the discriminant
         dis = b * b - 4 * a * c
         sqrt_val = math.sqrt(abs(dis))
@@ -25,17 +27,16 @@ class Commands(commands.Cog):
 
         # checking condition for discriminant
         if dis > 0:
-            embed.add_field(name="Solution", value="x = " + str((-b + sqrt_val) / (2 * a))
-                                                       + " ; " + str(((-b - sqrt_val) / (2 * a))))
+            embed.add_field(name="Solution", value="x = %s ; %s" % (str((-b + sqrt_val) / (2 * a)),
+                                                                    str((-b - sqrt_val) / (2 * a))))
         elif dis == 0:
-            embed.add_field(name="Solutions", value="x = " + str(-b / (2 * a)) + " ; " +
-                                                        str(-b / (2 * a)))
-            # when discriminant is less than 0
+            x = str(-b / (2 * a))
+            embed.add_field(name="Solutions", value="x = " + x + " ; " + x)
+        # when discriminant is less than 0
         else:
-            embed.add_field(name="Solutions", value="x = " +
-                                                    str(- b / (2 * a)) + "+" + str(sqrt_val) + "i" +
-                                                    " ; " +
-                                                    str(- b / (2 * a)) + "-" + str(sqrt_val) + "i")
+            x = str(- b / (2 * a))
+            discriminant = str(sqrt_val)
+            embed.add_field(name="Solutions", value="x = %s+%si ; %s-%si" % (x, discriminant, x, discriminant))
         await ctx.send(embed=embed)
 
 

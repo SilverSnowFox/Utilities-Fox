@@ -24,18 +24,9 @@ class Command(commands.Cog):
             reaction_reagents = reaction_split[0].split("+")
             reaction_products = reaction_split[1].split("+")
 
-            # Limiting the number of products of reactants
-            if (len(reaction_products) > 4) or (len(reaction_reagents) > 4):
-                await ctx.send("Please limit to at most 4 reactants or products.")
-                return
-
             # Converts into Compound objects
-            products = []
-            for product in reaction_products:
-                products.append(Compound(product))
-            reactants = []
-            for reactant in reaction_reagents:
-                reactants.append(Compound(reactant))
+            products = [Compound(product) for product in reaction_products]
+            reactants = [Compound(reactant) for reactant in reaction_reagents]
 
             # Creates the reaction
             r = Reaction(reactants, products)

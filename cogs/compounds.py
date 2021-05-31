@@ -14,7 +14,8 @@ class Commands(commands.Cog):
             return
         compound = Compound(arg)
         embed = discord.Embed(title='Molar Mass', color=discord.Colour.gold())
-        embed.add_field(name='Molar mass of ' + arg + ':', value=str(compound.molar_mass()) + 'g/mol',
+        embed.add_field(name='Molar mass of %s:' % arg,
+                        value="%s g/mol" % str(compound.molar_mass()),
                         inline=False)
 
         await ctx.send(embed=embed)
@@ -34,11 +35,9 @@ class Commands(commands.Cog):
         value = ''
         for char in arg:
             if char in '1234567890.':
-                value += char
-        if value[-1] == '.':
-            new_val = float(value[0:-1])
-        else:
-            new_val = float(value)
+                value.join(char)
+
+        new_val = float(value.rstrip('.'))
 
         moles, mass = 0, 0
         if "mg" in arg:
