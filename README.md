@@ -1,5 +1,5 @@
 # Chemistry Utilities Fox
- A discord bot with some basic chemistry functions such as element information, mass calculation and reaction balancing that utilizes chemlib
+ A discord bot with some basic chemistry functions such as element information, mass calculation, reaction balancing that utilizes chemlib and searching through the PubChem database.
  
 ## Commands
  Prefix: c!
