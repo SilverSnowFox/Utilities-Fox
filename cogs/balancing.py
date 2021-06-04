@@ -42,19 +42,16 @@ class Command(commands.Cog):
 
             # Checks that the products and reactants are related. If they aren't the is_balance would fail and the
             # balancing would result in the same reaction.
-            a = r
+            # a = r
             r.balance()
-            if a == r:
-                await ctx.send("I'm unable to balance unrelated reagents with unrelated products or the reaction " +
-                               "isn't valid.")
-                return
-            else:
-                balance_embed.add_field(name="Balancing",
-                                        value="Reaction:\n{react}\nBalanced:\n{balanced}".format(
-                                            react=arg, balanced=r.formula
-                                        ))
+            balance_embed.add_field(name="Balancing",
+                                    value="Reaction:\n{react}\n\nBalanced:\n{balanced}".format(
+                                        react=arg, balanced=r.formula
+                                    ))
             await ctx.send(embed=balance_embed)
 
+        except Exception as e:
+            print(e)
         except commands.CommandInvokeError:
             await ctx.send("Invalid reaction. Ex: `c!Balance AA + bB -> cC + dD`")
         except IndexError:
