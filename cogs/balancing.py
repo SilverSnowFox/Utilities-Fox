@@ -11,15 +11,18 @@ class Command(commands.Cog):
     async def balance(self, ctx, *, arg=None):
         # Gets a chemical reaction and balances it
         if arg is None:
-            await ctx.send("Please input a reaction")
+            await ctx.send("Please input a reaction. Ex: `c!Balance AA + bB -> cC + dD`")
             return
 
         try:
             # Create embed and send embed with instructions on input.
             start_embed = discord.Embed(colour=discord.Colour.gold())
             start_embed.title = 'Balancing'
+
             # Splits into products and reactants
+            arg.replace(" ", "")
             reaction_split = arg.split("->")
+
             # Splits into individual compounds, no need to strip as the package does it
             reaction_reagents = reaction_split[0].split("+")
             reaction_products = reaction_split[1].split("+")
@@ -35,16 +38,27 @@ class Command(commands.Cog):
 
             if r.is_balanced:
                 balance_embed.add_field(name="Balancing",
-                                        value="Reaction:\n" + arg + "\n It's already balanced.")
-            else:
-                r.balance()
-                balance_embed.add_field(name="Balancing",
-                                        value="Reaction:\n" + arg + "\n\nBalanced:\n " + r.formula)
+                                        value="The reaction {react} is already balanced.".format(react=arg))
 
+            # Checks that the products and reactants are related. If they aren't the is_balance would fail and the
+            # balancing would result in the same reaction.
+            a = r
+            r.balance()
+            if a == r:
+                await ctx.send("I'm unable to balance unrelated reagents with unrelated products or the reaction " +
+                               "isn't valid.")
+                return
+            else:
+                balance_embed.add_field(name="Balancing",
+                                        value="Reaction:\n{react}\nBalanced:\n{balanced}".format(
+                                            react=arg, balanced=r.formula
+                                        ))
             await ctx.send(embed=balance_embed)
 
-        except:
-            await ctx.send("Something went wrong. Please check format, try again or contact my creator.")
+        except commands.CommandInvokeError:
+            await ctx.send("Invalid reaction. Ex: `c!Balance AA + bB -> cC + dD`")
+        except IndexError:
+            await ctx.send("Invalid reaction. Ex: `c!Balance AA + bB -> cC + dD`")
 
 
 def setup(client):

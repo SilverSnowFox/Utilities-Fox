@@ -12,11 +12,15 @@ class Commands(commands.Cog):
     async def search(self, ctx, *, arg=None):
         # Checks if used added an argument
         if arg is None:
-            await ctx.send("Please input the command with a valid compound name.")
+            await ctx.send("Please input the command with a valid compound name. Ex: `c!Search Water`")
             return
 
         # Gets the results of the search
         results = pcp.get_compounds(arg, 'name')
+
+        if len(results) == 0:
+            await ctx.send("Unable to find any results.")
+            return
 
         embed = discord.Embed(colour=discord.Colour.gold())
         embed.title = 'Search Results'
@@ -28,9 +32,10 @@ class Commands(commands.Cog):
         for compound in results:
             indv = compound.to_dict(properties=['iupac_name', 'cid', 'molecular_weight', 'molecular_formula'])
             embed.add_field(name=indv['molecular_formula'],
-                            value="PubChem CID: " + str(indv['cid']) +
-                                  "\nIUPAC Name: " + indv['iupac_name'] +
-                                  "\nMolecular Weight: " + str(indv['molecular_weight']) + "g/mol")
+                            value="PubChem CID: {cid}\nIUPAC Name: {iupac}\nMolecular Mass: {mw} g/mol".format(
+                                cid=indv['cid'], iupac=indv['iupac_name'], mw=indv['molecular_weight']
+                            ),
+                            inline=False)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=["information", "Information", "Info"])
@@ -39,17 +44,16 @@ class Commands(commands.Cog):
         if arg is None:
             await ctx.send("Please use the command with a CID")
             return
+        if '.' in arg:
+            await ctx.send("Invalid CID.")
+            return
 
-        # Gets the PubChem CID
-        cid = 0
         try:
+            # Gets the PubChem CID
             cid = int(arg)
-        except ValueError:
-            await ctx.send("Invalid PubChem CID")
-
-        try:
             result = pcp.Compound.from_cid(cid).to_dict(properties=['molecular_formula', 'molecular_weight',
                                                                     'iupac_name', 'charge'])
+
             # Creates the image of the structure, overwrites if there is one, even from a different chemical
             pcp.download(outformat='PNG', path='images\\01.png', identifier=cid, namespace='cid', overwrite=True)
             file = discord.File("images\\01.png")
