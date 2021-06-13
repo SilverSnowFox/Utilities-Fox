@@ -10,10 +10,37 @@ client.remove_command('help')
 @client.command()
 async def reload(ctx, extension):
     try:
-        if ctx.message.author.id == 231580977405624320:
+        owners = json.load(open('owners.json'))
+        if ctx.message.author.id in owners:
             client.unload_extension(f'cogs.{extension}')
             client.load_extension(f'cogs.{extension}')
             await ctx.send(f"cogs.{extension} reloaded.")
+        else:
+            await ctx.send("This is an owner only command.")
+    except commands.CommandInvokeError:
+        await ctx.send("Cog doesn't exist.")
+
+
+@client.command()
+async def load(ctx, extension):
+    try:
+        owners = json.load(open('owners.json'))
+        if ctx.message.author.id in owners:
+            client.load_extension(f'cogs.{extension}')
+            await ctx.send(f'cogs.{extension} loaded.')
+        else:
+            await ctx.send("This is an owner only command.")
+    except commands.CommandInvokeError:
+        await ctx.send("Cog doesn't exist.")
+
+
+@client.command()
+async def unload(ctx, extension):
+    try:
+        owners = json.load(open('owners.json'))
+        if ctx.message.author.id in owners:
+            client.unload_extension(f'cogs.{extension}')
+            await ctx.send(f'cogs.{extension} unloaded.')
         else:
             await ctx.send("This is an owner only command.")
     except commands.CommandInvokeError:
