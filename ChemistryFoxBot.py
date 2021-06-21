@@ -55,7 +55,7 @@ for filename in os.listdir('./cogs'):
 async def on_ready():
     print(f'Bot is online. Logged in as {client.user.name}')
     await client.change_presence(status=discord.Status.online)
-    await client.change_presence(activity=discord.Game('with some ´chemicals.'))
+    await client.change_presence(activity=discord.Game('with some chemicals.'))
 
 
 json_file = open("token.json")
