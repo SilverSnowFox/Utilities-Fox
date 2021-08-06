@@ -1,6 +1,7 @@
 import discord
-from discord.ext import commands
 import pubchempy as pcp
+from discord.ext import commands
+from discord import Button, ButtonStyle
 
 
 class Commands(commands.Cog):
@@ -12,40 +13,55 @@ class Commands(commands.Cog):
     async def search(self, ctx, *, arg=None):
         # Checks if used added an argument
         if arg is None:
-            await ctx.send("Please input the command with a valid compound name. Ex: `c!Search Water`")
+            await ctx.send(embed=discord.Embed.from_dict({
+                "title": "Error",
+                "description": "Invalid input. Please use the command in the form:\n```c!search <compound>```"
+            }))
             return
 
-        # Gets the results of the search
-        results = pcp.get_compounds(arg, 'name')
+        try:
+            # Gets the results of the search
+            results = pcp.get_compounds(arg, 'name')
 
-        if len(results) == 0:
-            await ctx.send("Unable to find any results.")
-            return
+            if len(results) == 0:
+                await ctx.send("Unable to find any results.")
+                return
 
-        embed = discord.Embed(colour=discord.Colour.gold())
-        embed.title = 'Search Results'
+            embed = discord.Embed(colour=discord.Colour.gold())
+            embed.title = 'Top 10 Search Results'
 
-        # Adds the information of the first 10 compounds
-        if len(results) > 10:
-            results = results[:10]
+            # Adds the information of the first 10 compounds
+            if len(results) > 10:
+                results = results[:10]
 
-        for compound in results:
-            indv = compound.to_dict(properties=['iupac_name', 'cid', 'molecular_weight', 'molecular_formula'])
-            embed.add_field(name=indv['molecular_formula'],
-                            value="PubChem CID: {cid}\nIUPAC Name: {iupac}\nMolecular Mass: {mw} g/mol".format(
-                                cid=indv['cid'], iupac=indv['iupac_name'], mw=indv['molecular_weight']
-                            ),
-                            inline=False)
-        await ctx.send(embed=embed)
+            for compound in results:
+                chem = compound.to_dict(properties=['iupac_name', 'cid', 'molecular_weight', 'molecular_formula'])
+                embed.add_field(name=chem['molecular_formula'],
+                                value=f"PubChem CID: {chem['cid']}\nIUPAC Name: {chem['iupac_name']}\nMolecular Mass: {chem['molecular_weight']} g/mol",
+                                inline=False)
+            await ctx.send(embed=embed, components=[Button(label='PubChem Search', style=ButtonStyle.url,
+                                                           url=f"https://pubchem.ncbi.nlm.nih.gov/#query={arg}")])
+
+        except Exception as e:
+            await ctx.send(embed=discord.Embed.from_dict({"title": "Error",
+                                                          "description": "Something went wrong..."}))
+            with open("data/error_log.txt", "a") as bug_report:
+                bug_report.write(f"[Search]: {e}\n")
 
     @commands.command(aliases=["information", "Information", "Info"])
     async def info(self, ctx, arg=None):
         # Gets extended information about the chemical by the PubChem CID
         if arg is None:
-            await ctx.send("Please use the command with a CID")
+            await ctx.send(embed=discord.Embed.from_dict({
+                "title": "Error",
+                "description": "You didn't input a CID. Please use the command in the form:\n```c!info <CID>```"
+            }))
             return
         if '.' in arg:
-            await ctx.send("Invalid CID.")
+            await ctx.send(embed=discord.Embed.from_dict({
+                "title": "Error",
+                "description": "Invalid input. Please use the command in the form:\n```c!info <CID>```"
+            }))
             return
 
         try:
@@ -53,22 +69,29 @@ class Commands(commands.Cog):
             cid = int(arg)
             result = pcp.Compound.from_cid(cid).to_dict(properties=['molecular_formula', 'molecular_weight',
                                                                     'iupac_name', 'charge'])
-
             # Creates the image of the structure, overwrites if there is one, even from a different chemical
-            pcp.download(outformat='PNG', path='images\\01.png', identifier=cid, namespace='cid', overwrite=True)
-            file = discord.File("images\\01.png")
+            pcp.download(outformat='PNG', path='data/01.png', identifier=cid, namespace='cid', overwrite=True)
+            file = discord.File("data/01.png", filename="01.png")
 
             # Creates the embed
             embed = discord.Embed(colour=discord.Colour.gold())
             embed.title = 'Search result'
-            val = 'Molecular Formula: {}\nMolecular Weight: {} g/mol\nIUPAC name: {}\nCharge: {}'.format(
-                result['molecular_formula'], result['molecular_weight'], result['iupac_name'], result['charge'])
+            val = f"Molecular Formula: {result['molecular_formula']}\nMolecular Weight: {result['molecular_weight']} g/mol\nIUPAC name: {result['iupac_name']}\nCharge: {result['charge']}"
 
-            embed.add_field(name='PubChem CID: ' + str(cid), value=val)
-            await ctx.send(embed=embed)
-            await ctx.send(file=file)
+            embed.add_field(name=f'PubChem CID: {cid}', value=val)
+            embed.set_image(url="attachment://01.png")
+            await ctx.send(embed=embed, file=file, components=[Button(label='PubChem Search', style=ButtonStyle.url,
+                                                                      url=f"https://pubchem.ncbi.nlm.nih.gov/compound/{cid}")])
         except ValueError:
-            await ctx.send("Invalid CID.")
+            await ctx.send(embed=discord.Embed.from_dict({
+                "title": "Error",
+                "description": "Invalid input. Please use the command in the form:\n```c!info <CID>```"
+            }))
+        except Exception as e:
+            await ctx.send(embed=discord.Embed.from_dict({"title": "Error",
+                                                          "description": "Something went wrong..."}))
+            with open("data/error_log.txt", "a") as bug_report:
+                bug_report.write(f"[Info]: {e}\n")
 
 
 def setup(client):

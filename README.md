@@ -1,44 +1,38 @@
-# Chemistry Utilities Fox
- A discord bot with some basic chemistry functions such as element information, mass calculation, reaction balancing that utilizes chemlib, and searching through the PubChem database.
+# Chemistry Fox
+A discord bot with some basic chemistry functions, such as calculations and searching compounds, and mathematics.
  
 ## Commands
- Prefix: c!
  
-### Help 
-```c!Help```
+### Help
+`Help`- Opens the help menu for commands, their description and their formatting.
 
-Lists all the commands and their information.
+### Bot Information
 
-### Element
-```c!Element [symbol]```
+`Botinfo` - Returns a list of the bot's information
+`Invite` - To invite me
+`Vote` - Vote to support me!
+`Latency` - Returns the bot's latency
+`Bugreport <report>` - In case something is broken
+`Suggestion <suggestion>` - To suggest new features!
+`Changelog` - List of new updates and notices
 
-Lists information about the element.
+### Chemistry 
 
-### Molar Mass
-```c!MolarMass [formula] [values]```
+`Mol <formula> <number>` - Calculate grams or moles by inputting the compound and a number, then selecting the units inputted
+`Molarmass <formula>` - Calculates the molar mass of the compound
+`Element <symbol>` - Gets the element's basic information
+`Constants` - List of common constants
+`Balance <reaction>`- Balances the reaction. Must be in the form: `aA + bB -> cC + dD`. It can have more than 2 reactants/products
 
-Calculates the mass and moles with the information given.
-The value's units can be in g, mg, mol, mmol. For example ```c!MolarMass H2O 3g```.
+### PubChem
 
-### Quadratic Root Calculator
-```c!Quadratic [a] [b] [c]```
+`Search <compound>` - Returns a list of the first 10 compounds found using the input with basic information and a button linked to the search. Can use the CID for the command `Info` for more information.
+`Info <CID>` - Returns a list of information found in PubChem, along with a button linked to the compound's page.
 
-Calculates the roots, whether real or imaginary, with the values a, b, c from a quadratic equation in the form ax² + bx + c = 0.
+### Mathematics
 
-### Reaction Balancer
-```c!Balance [reaction]```
+`Quadratic <a> <b> <c>` - Solves for ax² + bx + c = 0
+`Average <value 1>, <value 2>, ...` - Returns the average and standard deviation of all the inputs. Inputs must be separated by a comma.
 
-Balances the inputted reaction.
-The reaction must be in the form ```aA + bB -> cC + dD```. For example ```C3H8 + 5O2 -> 3CO2 + 4H2O```.
 
-### Search by Name
-```c!Search [name]```
-
-Searches for the compound with such name in the PubChem database and returns a list of the results.
-Information returned includes IUPAC name, CID, Molecular Weight and Molecular Formula
-
-### Search by CID
-```c!Info [CID]```
-
-Searches for the compound with such CID in the PubChem database for more details.
-Information returned includes IUPAC name, Molecular Formula, Molecular Weight, Charge and an image of the Lewis Structure as a PNG.
+I'm open to adding more features, commands, and subjects like physics and biology! Also considering adding multi-language support.

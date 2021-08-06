@@ -3,7 +3,7 @@ import json
 import os
 from discord.ext import commands
 
-client = commands.Bot(command_prefix=["c!", "C!"])
+client = commands.Bot(command_prefix=commands.when_mentioned_or("c!"))
 client.remove_command('help')
 
 
@@ -19,6 +19,11 @@ async def reload(ctx, extension):
             await ctx.send("This is an owner only command.")
     except commands.CommandInvokeError:
         await ctx.send("Cog doesn't exist.")
+    # To log all extra exceptions and later fix
+    except Exception as e:
+        with open("data/error_log.txt", "a") as bug_report:
+            import datetime
+            bug_report.write(f"{datetime.datetime} [BugReport]: {e}")
 
 
 @client.command()
@@ -32,6 +37,11 @@ async def load(ctx, extension):
             await ctx.send("This is an owner only command.")
     except commands.CommandInvokeError:
         await ctx.send("Cog doesn't exist.")
+    # To log all extra exceptions and later fix
+    except Exception as e:
+        with open("data/error_log.txt", "a") as bug_report:
+            import datetime
+            bug_report.write(f"{datetime.datetime} [BugReport]: {e}")
 
 
 @client.command()
@@ -45,6 +55,17 @@ async def unload(ctx, extension):
             await ctx.send("This is an owner only command.")
     except commands.CommandInvokeError:
         await ctx.send("Cog doesn't exist.")
+    # To log all extra exceptions and later fix
+    except Exception as e:
+        with open("data/error_log.txt", "a") as bug_report:
+            import datetime
+            bug_report.write(f"{datetime.datetime} [BugReport]: {e}")
+
+
+@client.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        return
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):

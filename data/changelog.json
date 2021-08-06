@@ -1,0 +1,20 @@
+{
+   "v2": {
+            "title": "Changelog",
+            "color": 10856460,
+            "description": "New changes, updates and some notes!",
+            "fields": [
+                {
+                    "name": "Changes",
+                    "value": "```diff\n+ Bot Rename: Chemistry Utilities Fox -> Chemistry Fox\n+ Added: Invite, Bugreport, Suggestion, Botinfo, Average, Vote, Constants\n+ Improved Help Menu\n+ New Select Menu and Buttons!\n+ Improved bot replies by using embeds\n+ Added links to PubChem for PubChem commands```"
+                },
+                {
+                    "name": "Notes and Considerations",
+                    "value": "```diff\n- Planning on adding more math commands, unsure what yet\n- Adding more chemistry commands (solutions, hydrogen orbital energy, wavelength-frequency-energy calculations, electrolysis[seconds, amps, grams, element])\n- Adding more Constants\n- Considering adding multi-language support (I'll translate for ones I know, while Google Translate the rest)\n- Should I add a quiz feature + multiple answer question feature?```"
+                }
+            ],
+            "footer": {
+                "text": "Reply to notes and Considerations by using the Suggestion command!"
+            }
+        }
+}

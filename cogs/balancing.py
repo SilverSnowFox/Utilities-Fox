@@ -9,9 +9,13 @@ class Command(commands.Cog):
 
     @commands.command(aliase=["Balance"])
     async def balance(self, ctx, *, arg=None):
+        invalid = {
+            "title": "Error",
+            "description": "Please input a reaction.\n ```c!Balance aA + bB -> cC + dD```"
+            }
         # Gets a chemical reaction and balances it
         if arg is None:
-            await ctx.send("Please input a reaction. Ex: `c!Balance AA + bB -> cC + dD`")
+            await ctx.send(embed=discord.Embed.from_dict(invalid))
             return
 
         try:
@@ -38,24 +42,25 @@ class Command(commands.Cog):
 
             if r.is_balanced:
                 balance_embed.add_field(name="Balancing",
-                                        value="The reaction {react} is already balanced.".format(react=arg))
+                                        value=f"The reaction ```{arg}``` is already balanced.")
 
             # Checks that the products and reactants are related. If they aren't the is_balance would fail and the
             # balancing would result in the same reaction.
             # a = r
             r.balance()
             balance_embed.add_field(name="Balancing",
-                                    value="Reaction:\n{react}\n\nBalanced:\n{balanced}".format(
-                                        react=arg, balanced=r.formula
-                                    ))
+                                    value=f"Reaction:\n```{arg}```\n\nBalanced:\n```{r.formula}```")
             await ctx.send(embed=balance_embed)
 
-        except Exception as e:
-            print(e)
         except commands.CommandInvokeError:
-            await ctx.send("Invalid reaction. Ex: `c!Balance AA + bB -> cC + dD`")
+            await ctx.send(embed=invalid)
         except IndexError:
-            await ctx.send("Invalid reaction. Ex: `c!Balance AA + bB -> cC + dD`")
+            await ctx.send(embed=invalid)
+        except Exception as e:
+            await ctx.send(embed=discord.Embed.from_dict({"title": "Error",
+                                                          "description": "Something went wrong..."}))
+            with open("data/error_log.txt", "a") as bug_report:
+                bug_report.write(f"[Balancing]: {e}\n")
 
 
 def setup(client):

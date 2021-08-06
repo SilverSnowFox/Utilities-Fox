@@ -1,0 +1,116 @@
+{
+  "EN": {
+    "main": {
+      "embed": {
+        "title": "Help Menu",
+        "color": 10856460,
+        "description": "Welcome to the help menu. \nPlease select the category you want below!",
+        "footer": {
+          "text": "Help me by voting and sharing!"
+        }
+      }
+    },
+    "pubchem": {
+      "label": "PubChem",
+      "value": "pubchem",
+      "description": "Searching using PubChem",
+      "embed": {
+        "title": "Help - PubChem",
+        "color": 10856460,
+        "fields": [
+          {
+            "name": "Commands",
+            "value": "`Search <compound>` - Returns a list of the first 10 compounds found using the input with basic information and a button linked to the search. Can use the CID for the command `Info` for more information.\n\n`Info <CID>` - Returns a list of information found in PubChem, along with a button linked to the compound's page."
+          }
+        ],
+        "footer": {
+          "text": "You can suggest new features that you would like to be added!"
+        }
+      }
+    },
+    "mathematics": {
+      "label": "Mathematics",
+      "value": "mathematics",
+      "description": "Mathematics calculations",
+      "embed": {
+        "title": "Help - Mathematics",
+        "color": 10856460,
+        "fields": [
+          {
+            "name": "Commands",
+            "value": "`Quadratic <a> <b> <c>` - Solves for ax² + bx + c = 0\n\n`Average <value 1>, <value 2>, ...` - Returns the average and standard deviation of all the inputs. Inputs must be separated by a comma."
+          }
+        ],
+        "footer": {
+          "text": "You can suggest new features that you would like to be added!"
+        }
+      }
+    },
+    "botinfo": {
+      "label": "Bot Information",
+      "value": "botinfo",
+      "description": "Information about the bot",
+      "embed": {
+        "title": "Help - Bot Information",
+        "color": 10856460,
+        "fields": [
+          {
+            "name": "Commands",
+            "value": "`Botinfo` - Returns a list of the bot's information\n\n`Invite` - To invite me\n\n`Vote` - Vote to support me!\n\n`Latency` - Returns the bot's latency\n\n`Bugreport <report>` - In case something is broken\n\n`Suggestion <suggestion>` - To suggest new features!\n\n`Changelog` - List of new updates and notices"
+          }
+        ],
+        "footer": {
+          "text": "Help me by sharing and voting!"
+        }
+      }
+    },
+    "chem": {
+      "label": "Chemistry",
+      "value": "chem",
+      "description": "Some chemistry calculations and information",
+      "embed": {
+        "title": "Help - Chemistry Calculations",
+        "color": 10856460,
+        "fields": [
+          {
+            "name": "Commands",
+            "value": "`Mol <formula> <number>` - Calculate grams or moles by inputting the compound and a number, then selecting the units inputted\n\n`Molarmass <formula>` - Calculates the molar mass of the compound\n\n`Element <symbol>` - Gets the element's basic information\n\n`Constants` - List of common constants\n\n`Balance <reaction>`- Balances the reaction. Must be in the form: `aA + bB -> cC + dD`. It can have more than 2 reactants/products"
+          }
+        ],
+        "footer": {
+          "text": "Feel free to suggest new features and constants!"
+        }
+      }
+    },
+    "all_commands": {
+      "label": "All",
+      "value": "all_commands",
+      "description": "List of all commands without descriptions",
+      "embed": {
+        "title": "Help - All Commands",
+        "color": 10856460,
+        "fields": [
+          {
+            "name": "Bot Info",
+            "value": "`Botinfo`, `Invite`, `Vote`, `Latency`, `Bugreport <report>`, `Suggestion <suggestion>`, `Changelog`"
+          },
+          {
+            "name": "Chemistry",
+            "value": "`Mol <formula> <number>`, `Molarmass <formula>`, `Element <symbol>`, `Constants`, `Balance <reaction>`"
+          },
+          {
+            "name": "PubChem",
+            "value": "`Search <compound>`, `Info <CID>`"
+          },
+          {
+            "name": "Mathematics",
+            "value": "`Quadratic <a> <b> <c>`, `Average <value 1>, <value 2>, ...`"
+          }
+        ],
+        "footer": {
+          "text": "Am I missing something? Suggest it!"
+        }
+      }
+    }
+  }
+}
