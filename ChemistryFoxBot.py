@@ -10,7 +10,7 @@ client.remove_command('help')
 @client.command()
 async def reload(ctx, extension):
     try:
-        owners = json.load(open('owners.json'))
+        owners = json.load(open('data/owners.json'))
         if ctx.message.author.id in owners:
             client.unload_extension(f'cogs.{extension}')
             client.load_extension(f'cogs.{extension}')
@@ -29,7 +29,7 @@ async def reload(ctx, extension):
 @client.command()
 async def load(ctx, extension):
     try:
-        owners = json.load(open('owners.json'))
+        owners = json.load(open('data/owners.json'))
         if ctx.message.author.id in owners:
             client.load_extension(f'cogs.{extension}')
             await ctx.send(f'cogs.{extension} loaded.')
@@ -47,7 +47,7 @@ async def load(ctx, extension):
 @client.command()
 async def unload(ctx, extension):
     try:
-        owners = json.load(open('owners.json'))
+        owners = json.load(open('data/owners.json'))
         if ctx.message.author.id in owners:
             client.unload_extension(f'cogs.{extension}')
             await ctx.send(f'cogs.{extension} unloaded.')
@@ -67,6 +67,7 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         return
 
+
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
@@ -79,7 +80,23 @@ async def on_ready():
     await client.change_presence(activity=discord.Game('with some chemicals.'))
 
 
-json_file = open("token.json")
+## Top.gg server count
+
+import topgg
+
+dbl_token = json.load(open("data/TopggToken.json"))
+client.topggpy = topgg.DBLClient(client, dbl_token, autopost=True, post_shard_count=True)
+
+
+@client.event
+async def on_autopost_success():
+    print(f"Posted server count ({client.topggpy.guild_count}), shard count ({client.shard_count})")
+
+
+##########
+
+
+json_file = open("data/token.json")
 token = json.load(json_file)
 
 client.run(token)

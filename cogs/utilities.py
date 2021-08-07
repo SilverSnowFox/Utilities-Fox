@@ -96,7 +96,7 @@ class Commands(commands.Cog):
                         "description": "Click below to invite me to your server!"}
         await ctx.send(embed=discord.Embed.from_dict(invite_embed), components=[
             Button(label="Invite me to your server", style=ButtonStyle.url,
-                   url="https://discord.com/oauth2/authorize?client_id=846917416558788638&permissions=51264&scope=bot")
+                   url="https://discord.com/api/oauth2/authorize?client_id=846917416558788638&permissions=18432&scope=bot")
         ])
 
     @commands.command(aliases=["Botinfo"])
@@ -121,7 +121,7 @@ class Commands(commands.Cog):
 
         await ctx.send(embed=info, components=[
             Button(label="Invite me", style=ButtonStyle.url,
-                   url="https://discord.com/oauth2/authorize?client_id=846917416558788638&permissions=51264&scope=bot")
+                   url="https://discord.com/api/oauth2/authorize?client_id=846917416558788638&permissions=18432&scope=bot")
         ])
 
     @commands.command(aliases=["Bugreport"])

@@ -1,7 +1,7 @@
-.token.json
 .idea/
 cogs/__pycache__/
 venv/
-token.json
+data/token.json
 Testing_and_info/
-owners.json
+data/owners.json
+data/TopggToken.json
