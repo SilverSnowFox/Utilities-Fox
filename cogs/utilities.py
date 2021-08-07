@@ -111,7 +111,7 @@ class Commands(commands.Cog):
         info.title = "Information"
         info.add_field(name="Bot Name", value=self.client.user.name, inline=False)
         info.add_field(name="Prefix", value="`c!` or `@mention`", inline=False)
-        info.add_field(name="Uptime", value=f"{round(self.client.latency * 1000)} ms", inline=False)
+        info.add_field(name="Latency", value=f"{round(self.client.latency * 1000)} ms", inline=False)
         info.add_field(name="Servers", value=f"{len(self.client.guilds)}", inline=False)
         info.add_field(name="Bot Owner", value="SevenTails#7757", inline=False)
         info.add_field(name="Uptime", value=f"{timedelta(seconds=round(time.time() - startTime))}", inline=False)
