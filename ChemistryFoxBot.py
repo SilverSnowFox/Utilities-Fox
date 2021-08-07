@@ -1,6 +1,7 @@
 import discord
 import json
 import os
+import topgg
 from discord.ext import commands
 
 client = commands.Bot(command_prefix=commands.when_mentioned_or("c!"))
@@ -79,13 +80,10 @@ async def on_ready():
     await client.change_presence(status=discord.Status.online)
     await client.change_presence(activity=discord.Game('with some chemicals.'))
 
-
 ## Top.gg server count
 
-import topgg
-
-dbl_token = json.load(open("data/TopggToken.json"))
-client.topggpy = topgg.DBLClient(client, dbl_token, autopost=True, post_shard_count=True)
+dbl_token = json.load(open("data/API_keys.json"))
+client.topggpy = topgg.DBLClient(client, dbl_token["top.gg"], autopost=True, post_shard_count=True)
 
 
 @client.event
