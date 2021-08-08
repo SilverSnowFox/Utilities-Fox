@@ -79,7 +79,7 @@ class Commands(commands.Cog):
 
     @commands.command(aliases=["Vote"])
     async def vote(self, ctx):
-        vote_embed = {"color": 10856460,
+        vote_embed = {"color": 16766720,
                       "title": "Vote",
                       "description": "Help me by voting!"}
         await ctx.send(embed=discord.Embed.from_dict(vote_embed), components=[
@@ -91,7 +91,7 @@ class Commands(commands.Cog):
 
     @commands.command(aliases=["Invite"])
     async def invite(self, ctx):
-        invite_embed = {"color": 10856460,
+        invite_embed = {"color": 16766720,
                         "title": "Invite",
                         "description": "Click below to invite me to your server!"}
         await ctx.send(embed=discord.Embed.from_dict(invite_embed), components=[
