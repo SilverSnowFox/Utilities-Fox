@@ -10,7 +10,7 @@
                 },
                 {
                     "name": "Notes and Considerations",
-                    "value": "```diff\n- Planning on adding more math commands, unsure what yet\n- Adding more chemistry commands (solutions, hydrogen orbital energy, wavelength-frequency-energy calculations, electrolysis[seconds, amps, grams, element])\n- Adding more Constants\n- Considering adding multi-language support (I'll translate for ones I know, while Google Translate the rest)\n- Should I add a quiz feature + multiple answer question feature?```"
+                    "value": "```diff\n- Planning on adding more math commands, unsure what yet\n- Adding more chemistry commands (solutions, hydrogen orbital energy, wavelength-frequency-energy calculations, electrolysis[seconds, amps, grams, element])\n- Adding more Constants\n- Attempted multi-language support, but unable to currently do it. Will try once again in the future\n- Should I add a quiz feature + multiple answer question feature?```"
                 }
             ],
             "footer": {

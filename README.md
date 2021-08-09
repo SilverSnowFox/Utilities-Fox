@@ -49,4 +49,4 @@ A discord bot with some basic chemistry functions, such as calculations and sear
 `Average <value 1>, <value 2>, ...` - Returns the average and standard deviation of all the inputs. Inputs must be separated by a comma.
 
 
-I'm open to adding more features, commands, and subjects like physics and biology! Also considering adding multi-language support.
+I'm open to adding more features, commands, and subjects like physics and biology!

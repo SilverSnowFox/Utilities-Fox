@@ -14,7 +14,7 @@ class Commands(commands.Cog):
     @commands.command(aliases=["Help"])
     async def help(self, ctx):
         try:
-            with open("data/help.json", "r") as file:
+            with open("JSON/help.json", "r") as file:
                 full_embed = json.load(file)
 
             lang = 'EN'

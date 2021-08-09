@@ -11,7 +11,7 @@ client.remove_command('help')
 @client.command()
 async def reload(ctx, extension):
     try:
-        owners = json.load(open('data/owners.json'))
+        owners = json.load(open('JSON/owners.json'))
         if ctx.message.author.id in owners:
             client.unload_extension(f'cogs.{extension}')
             client.load_extension(f'cogs.{extension}')
@@ -30,7 +30,7 @@ async def reload(ctx, extension):
 @client.command()
 async def load(ctx, extension):
     try:
-        owners = json.load(open('data/owners.json'))
+        owners = json.load(open('JSON/owners.json'))
         if ctx.message.author.id in owners:
             client.load_extension(f'cogs.{extension}')
             await ctx.send(f'cogs.{extension} loaded.')
@@ -48,7 +48,7 @@ async def load(ctx, extension):
 @client.command()
 async def unload(ctx, extension):
     try:
-        owners = json.load(open('data/owners.json'))
+        owners = json.load(open('JSON/owners.json'))
         if ctx.message.author.id in owners:
             client.unload_extension(f'cogs.{extension}')
             await ctx.send(f'cogs.{extension} unloaded.')
@@ -82,7 +82,7 @@ async def on_ready():
 
 ## Top.gg server count
 
-dbl_token = json.load(open("data/API_keys.json"))
+dbl_token = json.load(open("JSON/API_keys.json"))
 client.topggpy = topgg.DBLClient(client, dbl_token["top.gg"], autopost=True, post_shard_count=True)
 
 
@@ -94,7 +94,7 @@ async def on_autopost_success():
 ##########
 
 
-json_file = open("data/token.json")
-token = json.load(json_file)
+with open("JSON/token.json") as json_file:
+    token = json.load(json_file)
 
 client.run(token)

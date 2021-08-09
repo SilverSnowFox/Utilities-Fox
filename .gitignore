@@ -1,8 +1,6 @@
 .idea/
 cogs/__pycache__/
 venv/
-data/token.json
-Testing_and_info/
-data/owners.json
-data/TopggToken.json
-data/API_keys.json
+JSON/token.json
+JSON/owners.json
+JSON/API_keys.json
