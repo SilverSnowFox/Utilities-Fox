@@ -117,7 +117,7 @@ class Commands(commands.Cog):
         info.add_field(name="Uptime", value=f"{timedelta(seconds=round(time.time() - startTime))}", inline=False)
         info.add_field(name="Version", value="2", inline=False)
         info.add_field(name="Coded in", value=f"Python {py.major}.{py.minor}.{py.micro} {py.releaselevel}")
-        info.set_thumbnail(url="https://cdn.discordapp.com/attachments/872274530041753651/873112938859360266/1534287126999.png")
+        info.set_thumbnail(url=self.client.user.avatar_url)
 
         await ctx.send(embed=info, components=[
             Button(label="Invite me", style=ButtonStyle.url,
