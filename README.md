@@ -1,5 +1,9 @@
 # Chemistry Fox
 A discord bot with some basic chemistry functions, such as calculations and searching compounds, and mathematics.
+
+## Warnings
+
+Bot appears to freeze if too large of a compound is input into the molar mass calculator, for example "C10000H10000", due to the size.
  
 ## Commands
  
