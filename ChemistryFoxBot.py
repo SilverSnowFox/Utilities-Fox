@@ -1,7 +1,6 @@
 import discord
 import json
 import os
-import topgg
 from discord.ext import commands
 
 client = commands.Bot(command_prefix=commands.when_mentioned_or("c!"))
@@ -80,19 +79,7 @@ async def on_ready():
     await client.change_presence(status=discord.Status.online)
     await client.change_presence(activity=discord.Game('with some chemicals.'))
 
-## Top.gg server count
-
-dbl_token = json.load(open("JSON/API_keys.json"))
-client.topggpy = topgg.DBLClient(client, dbl_token["top.gg"], autopost=True, post_shard_count=True)
-
-
-@client.event
-async def on_autopost_success():
-    print(f"Posted server count ({client.topggpy.guild_count}), shard count ({client.shard_count})")
-
-
 ##########
-
 
 with open("JSON/token.json") as json_file:
     token = json.load(json_file)

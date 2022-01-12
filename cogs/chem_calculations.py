@@ -1,3 +1,4 @@
+import asyncio
 import discord
 from discord.ext import commands
 from chemlib import Compound
@@ -26,6 +27,11 @@ class Commands(commands.Cog):
 
             await ctx.send(embed=embed)
 
+        except asyncio.TimeoutError:
+            await ctx.send(embed=discord.Embed.from_dict({
+                "title": "Error",
+                "description": "I seemed to have timed out due to the molecule. Please try with a different molecule or at another time."
+            }))
         except IndexError:
             await ctx.send(embed=discord.Embed.from_dict({
                 "title": "Error",
