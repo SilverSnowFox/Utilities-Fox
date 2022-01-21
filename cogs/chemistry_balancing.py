@@ -3,12 +3,14 @@ from discord.ext import commands
 from chemlib import Reaction, Compound
 
 
-class Command(commands.Cog):
+class Commands(commands.Cog):
     def __init__(self, client):
         self.client = client
 
     @commands.command(aliase=["Balance"])
     async def balance(self, ctx, *, arg=None):
+        # TODO: Test if can balance without the module
+        # TODO: Improve resource use for balancing
         invalid = {
             "title": "Error",
             "description": "Please input a reaction.\n ```c!Balance aA + bB -> cC + dD```"
@@ -64,4 +66,4 @@ class Command(commands.Cog):
 
 
 def setup(client):
-    client.add_cog(Command(client))
+    client.add_cog(Commands(client))

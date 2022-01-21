@@ -1,4 +1,3 @@
-import asyncio
 import discord
 from discord.ext import commands
 from chemlib import Compound
@@ -9,43 +8,12 @@ class Commands(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=["MolarMass", "molarMass", "Molarmass"])
-    async def molarmass(self, ctx, arg=None):
-        if arg is None:
-            await ctx.send(embed=discord.Embed.from_dict({
-                "title": "Error",
-                "description": "No input. Please use the command in the form:\n```c!Molarmass <formula>```"
-            }))
-            return
-
-        try:
-            compound = Compound(arg)
-            embed = discord.Embed(title='Molar Mass', color=discord.Colour.gold())
-            embed.add_field(name=f'Molar mass of {arg}:',
-                            value=f"```{compound.molar_mass()} g/mol```",
-                            inline=False)
-
-            await ctx.send(embed=embed)
-
-        except asyncio.TimeoutError:
-            await ctx.send(embed=discord.Embed.from_dict({
-                "title": "Error",
-                "description": "I seemed to have timed out due to the molecule. Please try with a different molecule or at another time."
-            }))
-        except IndexError:
-            await ctx.send(embed=discord.Embed.from_dict({
-                "title": "Error",
-                "description": "Invalid input. Please use the command in the form:\n```c!Molarmass <formula>```"
-            }))
-        except Exception as e:
-            await ctx.send(embed=discord.Embed.from_dict({"title": "Error",
-                                                          "description": "Something went wrong..."
-                                                          }))
-            with open("data/error_log.txt", "a") as bug_report:
-                bug_report.write(f"[Molarmass]: {e}\n")
-
     @commands.command(aliases=["Mol"])
     async def mol(self, ctx, formula=None, arg=None):
+        # TODO: Remake the mol calculation commmand with more instructions and text
+        # TODO: Maybe try regex to limit the molecule size, to avoid crashing instead of timeout
+        # TODO: Attempt to remake the unit conversion into a switch-case to improve it
+
         if formula is None or arg is None or float(arg) < 0:
             await ctx.send(embed=discord.Embed.from_dict({
                 "title": "Error",
@@ -122,7 +90,7 @@ class Commands(commands.Cog):
         except Exception as e:
             await ctx.send(embed=discord.Embed.from_dict({"title": "Error", "description": "Something went wrong..."}))
             with open("data/error_log.txt", "a") as bug_report:
-                bug_report.write(f"[Mass]: {e}\n")
+                bug_report.write(f"[Mol]: {e}\n")
 
 
 def setup(client):
