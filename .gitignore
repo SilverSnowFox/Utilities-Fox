@@ -4,3 +4,4 @@ venv/
 JSON/token.json
 JSON/owners.json
 TODO.md
+functions/__pycache__/

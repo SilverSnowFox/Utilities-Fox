@@ -8,53 +8,45 @@ class Commands(commands.Cog):
         self.client = client
 
     @commands.command(aliase=["Balance"])
-    async def balance(self, ctx, *, arg=None):
-        # TODO: Test if can balance without the module
-        # TODO: Improve resource use for balancing
+    async def balance(self, ctx, *, arg):
+        """Takes argument input, balances and returns the balance reaction in an embed.
+            Input: aA + bB + ... -> cC + dD + ...
+            It technically can take an infinite length reaction."""
+
         invalid = {
             "title": "Error",
             "description": "Please input a reaction.\n ```c!Balance aA + bB -> cC + dD```"
             }
-        # Gets a chemical reaction and balances it
-        if arg is None:
-            await ctx.send(embed=discord.Embed.from_dict(invalid))
-            return
 
         try:
-            # Create embed and send embed with instructions on input.
-            start_embed = discord.Embed(colour=discord.Colour.gold())
-            start_embed.title = 'Balancing'
-
             # Splits into products and reactants
             arg.replace(" ", "")
             reaction_split = arg.split("->")
 
             # Splits into individual compounds, no need to strip as the package does it
-            reaction_reagents = reaction_split[0].split("+")
-            reaction_products = reaction_split[1].split("+")
+            rxn_reagents = reaction_split[0].split("+")
+            rxn_products = reaction_split[1].split("+")
 
-            # Converts into Compound objects
-            products = [Compound(product) for product in reaction_products]
-            reactants = [Compound(reactant) for reactant in reaction_reagents]
-
-            # Creates the reaction
-            r = Reaction(reactants, products)
+            # Converts strings to compounds and then into a reaction
+            r = Reaction([Compound(reactant) for reactant in rxn_reagents],
+                         [Compound(product) for product in rxn_products])
 
             balance_embed = discord.Embed(colour=discord.Colour.gold())
 
+            # Checks whether the reaction is or isn't balanced before adding the field to the embed.
             if r.is_balanced:
                 balance_embed.add_field(name="Balancing",
                                         value=f"The reaction ```{arg}``` is already balanced.")
+            else:
+                r.balance()
+                balance_embed.add_field(name="Balancing",
+                                        value=f"Reaction:\n```{arg}```\n\nBalanced:\n```{r.formula}```")
 
-            # Checks that the products and reactants are related. If they aren't the is_balance would fail and the
-            # balancing would result in the same reaction.
-            # a = r
-            r.balance()
-            balance_embed.add_field(name="Balancing",
-                                    value=f"Reaction:\n```{arg}```\n\nBalanced:\n```{r.formula}```")
             await ctx.send(embed=balance_embed)
 
         except commands.CommandInvokeError:
+            await ctx.send(embed=invalid)
+        except commands.MissingRequiredArgument:
             await ctx.send(embed=invalid)
         except IndexError:
             await ctx.send(embed=invalid)

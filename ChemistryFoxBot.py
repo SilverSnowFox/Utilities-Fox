@@ -1,15 +1,16 @@
 import discord
 import json
 import os
+from functions.package_installer import install_req
 from discord.ext import commands
 
 client = commands.Bot(command_prefix=commands.when_mentioned_or("c!"))
 client.remove_command('help')
 
-# TODO: Add in a package installer, if packages are not installed
 # TODO: Merge the three cog commands into one
 # TODO: Add in Owner commands for information
 
+install_req()
 
 @client.command()
 async def reload(ctx, extension):

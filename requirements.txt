@@ -4,4 +4,3 @@ chemlib~=2.2.0
 pubchempy~=1.0.4
 simplejson~=3.17.3
 discord.py-message-components~=1.7.5.4
-requests~=2.25.1

@@ -9,19 +9,12 @@ class Commands(commands.Cog):
         self.client = client
 
     @commands.command(aliases=["MolarMass", "molarMass", "Molarmass"])
-    async def molarmass(self, ctx, arg=None):
+    async def molarmass(self, ctx, compound: Compound):
         # TODO: Check to make sure the large molecules don't crash the command
-        if arg is None:
-            await ctx.send(embed=discord.Embed.from_dict({
-                "title": "Error",
-                "description": "No input. Please use the command in the form:\n```c!Molarmass <formula>```"
-            }))
-            return
 
         try:
-            compound = Compound(arg)
             embed = discord.Embed(title='Molar Mass', color=discord.Colour.gold())
-            embed.add_field(name=f'Molar mass of {arg}:',
+            embed.add_field(name=f'Molar mass of {compound.formula}:',
                             value=f"```{compound.molar_mass()} g/mol```",
                             inline=False)
 
@@ -36,6 +29,11 @@ class Commands(commands.Cog):
             await ctx.send(embed=discord.Embed.from_dict({
                 "title": "Error",
                 "description": "Invalid input. Please use the command in the form:\n```c!Molarmass <formula>```"
+            }))
+        except commands.MissingRequiredArgument:
+            await ctx.send(embed=discord.Embed.from_dict({
+                "title": "Error",
+                "description": "No input. Please use the command in the form:\n```c!Molarmass <formula>```"
             }))
         except Exception as e:
             await ctx.send(embed=discord.Embed.from_dict({"title": "Error",
