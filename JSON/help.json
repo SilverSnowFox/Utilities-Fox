@@ -38,7 +38,7 @@
         "fields": [
           {
             "name": "Commands",
-            "value": "`Quadratic <a> <b> <c>` - Solves for ax² + bx + c = 0\n\n`Average <value 1>, <value 2>, ...` - Returns the average and standard deviation of all the inputs. Inputs must be separated by a comma."
+            "value": "`Poly <a> <b> <c optional> <d optional>` - Solves a linear, quadratic, or cubic polynomial depending on the input given ax + b = 0, ax² + bx + c = 0 or ax³ + bx² + cx + d = 0\n\n`Stat <value 1>, <value 2>, ...` - Returns various statistical functions from the inputs. Inputs must be separated by a comma."
           }
         ],
         "footer": {
@@ -104,7 +104,7 @@
           },
           {
             "name": "Mathematics",
-            "value": "`Quadratic <a> <b> <c>`, `Average <value 1>, <value 2>, ...`"
+            "value": "`Poly <a> <b> <c optional> <d optional>`, `Stat <value 1>, <value 2>, ...`"
           }
         ],
         "footer": {
