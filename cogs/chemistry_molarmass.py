@@ -1,5 +1,6 @@
 import asyncio
 import discord
+from functions import chemlib_helper
 from discord.ext import commands
 from chemlib import Compound
 
@@ -10,9 +11,16 @@ class Commands(commands.Cog):
 
     @commands.command(aliases=["MolarMass", "molarMass", "Molarmass"])
     async def molarmass(self, ctx, compound: Compound):
-        # TODO: Check to make sure the large molecules don't crash the command
-
+        """Calculates the molar mass of a compound up to 10000 molecules large."""
         try:
+            # Limiting the number of molecules, as any large would start to take too long to calculate
+            if not chemlib_helper.molarmass_limit_check(compound):
+                await ctx.send(embed=discord.Embed.from_dict({
+                    "title": "Error",
+                    "description": "Please limit your molecule size to 10000 molecules or less."
+                }))
+                return
+
             embed = discord.Embed(title='Molar Mass', color=discord.Colour.gold())
             embed.add_field(name=f'Molar mass of {compound.formula}:',
                             value=f"```{compound.molar_mass()} g/mol```",

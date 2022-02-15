@@ -1,5 +1,4 @@
 import statistics
-
 import discord
 from discord.ext import commands
 import statistics as stats
@@ -23,6 +22,7 @@ class Commands(commands.Cog):
                 "Harmonic Mean": stats.harmonic_mean(values),
                 "Median": stats.median(values),
                 "Modes": ', '.join([str(mode) for mode in stats.multimode(values)]),
+                "Quartiles": ", ".join(map(str, [x for x in statistics.quantiles(values, n=4)])),
                 "Sample Standard Deviation": stats.stdev(values),
                 "Sample Variance": stats.variance(values)
             }

@@ -5,6 +5,7 @@ from discord.ext import commands
 from discord import SelectMenu, SelectOption
 
 startTime = time.time()
+lang = 'EN'
 
 
 class Commands(commands.Cog):
@@ -40,7 +41,7 @@ class Commands(commands.Cog):
                 ])
             ]]
 
-            msg = await ctx.send(embed=discord.Embed.from_dict(full_embed['EN']['main']['embed']), components=menu)
+            msg = await ctx.send(embed=discord.Embed.from_dict(full_embed[lang]['main']['embed']), components=menu)
 
             def check_selection(i: discord.Interaction, select_menu):
                 return i.message == msg
@@ -58,8 +59,10 @@ class Commands(commands.Cog):
                                                                    disabled=True,
                                                                    placeholder='Disabled',
                                                                    options=[SelectOption(label='Filler', value='filler')])]])
-                await interaction.respond(embed=discord.Embed.from_dict(full_embed[lang][selection]['embed']),
-                                          hidden=True)
+
+                await ctx.send(embed=discord.Embed.from_dict(full_embed[lang][selection]['embed']))
+                await interaction.defer()
+                # await interaction.respond(embed=discord.Embed.from_dict(full_embed[lang][selection]['embed']), hidden=True)
 
                 def check_selection(i: discord.Interaction, select_menu):
                     return i.message == msg
@@ -70,6 +73,7 @@ class Commands(commands.Cog):
                 x += 1
 
         except Exception as e:
+            print(e)
             await ctx.send(embed=discord.Embed.from_dict({"title": "Error",
                                                           "description": "Something went wrong..."}))
             with open("data/error_log.txt", "a") as bug_report:
