@@ -14,6 +14,7 @@ install_req()
 
 @client.command(aliases=["Cog"])
 async def cog(ctx, action, cogType, folder, extension):
+    # TODO: Need to fix the cog loading, unloading and reloading so that they work through Discord. They remain untested.
 
     # To check that cog exists
     if not os.path.isfile(f"{cogType}/{folder}/{extension}.py"):
@@ -60,9 +61,10 @@ async def on_command_error(ctx, error):
         return
 
 
-for filename in os.listdir('./cogs'):
-    if filename.endswith('.py'):
-        client.load_extension(f'cogs.{filename[:-3]}')
+for category in os.listdir('./cogs'):
+    for filename in os.listdir(category):
+        if filename.endswith('.py'):
+            client.load_extension(f'cogs.{filename[:-3]}')
 
 
 @client.event

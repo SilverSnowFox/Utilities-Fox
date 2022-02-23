@@ -1,7 +1,10 @@
 .idea/
-cogs/__pycache__/
+cogs/Chemistry/__pycache__/
+cogs/Mathematics/__pycache__/
+cogs/Utilities/__pycache__/
 venv/
 JSON/token.json
 JSON/owners.json
 TODO.md
 functions/__pycache__/
+data/error_log.txt
